@@ -30,6 +30,29 @@ async function createFlightController(req,res) {
     
 }
 
+async function getFlightController(req,res) {
+    
+   try {
+    
+ const responce= await flightService.getFlightservice(req.query);
+    res.status(200).json({
+        success:true,
+        message:"successfully get data",
+        data:responce,
+        error:{}
+    })
+
+   } catch (error) {
+    res.status(500).json({
+        success:false,
+        message:"Unable to get data",
+        data:{},
+        error:error
+    })
+   }
+}
+
 module.exports={
-    createFlightController
+    createFlightController,
+    getFlightController
 }
