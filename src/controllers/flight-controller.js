@@ -1,3 +1,4 @@
+const { response } = require("express");
 const {flightService}=require("../services")
 
 async function createFlightController(req,res) {
@@ -52,7 +53,57 @@ async function getFlightController(req,res) {
    }
 }
 
+
+async function getFlightbyIDController(req,res){
+    try {
+        
+        const responce= await flightService.getFlightbyIdService(req.params.id);
+        return res.status(200).json({
+            success:true,
+            message:"Successfully get data",
+            data:responce,
+            error:{}
+        })
+
+    } catch (error) {
+        console.log("Unable to get data");
+        res.status(500).json({
+            success:false,
+            message:"unable to get data by ID",
+            data:{},
+            error:error
+
+        })
+    }
+}
+
+async function updateSeatsService (req,res) {
+    try {
+        const responce= await flightService.UpdateRemaningSeatsService({
+            flightId:req.params.id,
+            seats:req.body.seats,
+            dec:req.body.dec
+        })
+        return res.status(200).json({
+            success:true,
+            message:"successfully updated seat number",
+            responce:responce,
+            error:{}
+        })
+    } catch (error) {
+        console.log("Unable to get update seats")
+        res.status(500).json({
+            success:false,
+            message:"unable to update seat number",
+            response:{},
+            error:error
+        })
+    }
+    
+}
 module.exports={
     createFlightController,
-    getFlightController
+    getFlightController,
+    getFlightbyIDController,
+    updateSeatsService
 }

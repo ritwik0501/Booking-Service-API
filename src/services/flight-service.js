@@ -76,7 +76,31 @@ async function getFlightservice(query) {
   }
 }
 
+async function getFlightbyIdService(id){
+   try {
+     const responce= await flight.finddata(id);
+     return responce;
+}
+   catch (error) {
+    console.log("Unable to get flight by id",error);
+   }
+
+  }
+
+async function UpdateRemaningSeatsService(data) {
+  console.log(data);
+  
+  try {
+    const responce= await flight.upRemainingSeats(data.flightId,data.seats,data.dec);
+    return responce;
+  } catch (error) {
+    console.log("unable to update seats");
+    return error;
+  }
+}
 module.exports = {
   createFlighService,
   getFlightservice,
+  getFlightbyIdService,
+  UpdateRemaningSeatsService
 };
