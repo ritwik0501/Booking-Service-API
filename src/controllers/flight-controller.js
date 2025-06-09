@@ -79,16 +79,18 @@ async function getFlightbyIDController(req,res){
 
 async function updateSeatsService (req,res) {
     try {
+        console.log(req.body);
+        
         const responce= await flightService.UpdateRemaningSeatsService({
             flightId:req.params.id,
             seats:req.body.seats,
-            dec:req.body.dec
+            dec:req.body.dec 
         })
         return res.status(200).json({
             success:true,
             message:"successfully updated seat number",
             responce:responce,
-            error:{}
+            error:{} 
         })
     } catch (error) {
         console.log("Unable to get update seats")

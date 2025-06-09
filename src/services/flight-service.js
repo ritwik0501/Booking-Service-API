@@ -94,8 +94,8 @@ async function UpdateRemaningSeatsService(data) {
     const responce= await flight.upRemainingSeats(data.flightId,data.seats,data.dec);
     return responce;
   } catch (error) {
-    console.log("unable to update seats");
-    return error;
+    console.log("unable to update seats",error.message);
+    return error.message;
   }
 }
 module.exports = {
